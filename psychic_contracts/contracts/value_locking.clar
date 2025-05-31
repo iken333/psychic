@@ -16,6 +16,7 @@
 ;; Maximum number of history entries to keep
 (define-constant max-history-entries u50)
 
+
 ;; Data variables for main storage
 (define-data-var stored-value uint u0)
 (define-data-var is-locked bool false)
@@ -83,6 +84,7 @@
   )
 )
 
+
 ;; Set value with automatic lock after specified blocks
 (define-public (set-value-with-auto-lock (new-value uint) (lock-after-blocks uint))
   (begin
@@ -98,6 +100,7 @@
   )
 )
 
+
 ;; Lock the main value
 (define-public (lock-value)
   (begin
@@ -109,6 +112,7 @@
   )
 )
 
+
 ;; Emergency unlock (owner only, for special circumstances)
 (define-public (emergency-unlock)
   (begin
@@ -118,6 +122,7 @@
     (ok true)
   )
 )
+
 
 ;; Key-value store operations
 (define-public (set-key-value (key (string-ascii 64)) (value uint))
@@ -136,6 +141,7 @@
   )
 )
 
+
 (define-public (lock-key (key (string-ascii 64)))
   (let ((existing (map-get? key-value-store { key: key })))
     (begin
@@ -151,6 +157,7 @@
   )
 )
 
+
 ;; Access control functions
 (define-public (authorize-user (user principal))
   (begin
@@ -160,6 +167,7 @@
   )
 )
 
+
 (define-public (revoke-user (user principal))
   (begin
     (asserts! (is-owner) err-owner-only)
@@ -167,6 +175,7 @@
     (ok true)
   )
 )
+
 
 ;; Batch operations
 (define-public (batch-set-values (values (list 10 { key: (string-ascii 64), value: uint })))
@@ -176,12 +185,14 @@
   )
 )
 
+
 (define-private (check-and-set (item { key: (string-ascii 64), value: uint }) (prev-result (response bool uint)))
   (match prev-result
     ok-val (set-key-value (get key item) (get value item))
     err-val (err err-val)
   )
 )
+
 
 ;; Auto-lock checker (should be called periodically)
 (define-public (process-auto-locks)
@@ -201,6 +212,7 @@
   )
 )
 
+
 ;; Read-only functions
 (define-read-only (get-value-and-status)
   {
@@ -211,9 +223,11 @@
   }
 )
 
+
 (define-read-only (get-key-value (key (string-ascii 64)))
   (map-get? key-value-store { key: key })
 )
+
 
 (define-read-only (get-history-entry (index uint))
   (map-get? value-history { index: index })
