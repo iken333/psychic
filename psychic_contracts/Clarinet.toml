@@ -14,6 +14,11 @@ epoch = 2.5
 path = 'contracts/value_locking.clar'
 clarity_version = 2
 epoch = 2.5
+
+[contracts.vote_audit_trail]
+path = 'contracts/vote_audit_trail.clar'
+clarity_version = 2
+epoch = 2.5
 [repl.analysis]
 passes = ['check_checker']
 
