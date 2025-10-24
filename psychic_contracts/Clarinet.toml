@@ -10,6 +10,11 @@ path = 'contracts/file_tag_moderation.clar'
 clarity_version = 2
 epoch = 2.5
 
+[contracts.multi_send_with_payment_splitting]
+path = 'contracts/multi_send_with_payment_splitting.clar'
+clarity_version = 2
+epoch = 2.5
+
 [contracts.value_locking]
 path = 'contracts/value_locking.clar'
 clarity_version = 2
